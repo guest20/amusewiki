@@ -37,7 +37,7 @@ jobs:
 #
 # build a package, and see what lintian thinks about it 
   dpkg-buildpackage:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: sudo -E apt-get update 
