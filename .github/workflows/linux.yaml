@@ -37,8 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run:  id 
       - name: apt-get update + install 
-        run: apt-get update && apt-get install -y $WANTED_PACKAGES
+        run:  apt-get update && sudo apt-get install -y $WANTED_PACKAGES
       # run: dpkg --get-selections; true 
       # run:  sudo apt-get update  && sudo apt-get build-dep . && sudo dpkg-buildpackage
       - run: sudo dpkg-buildpackage
