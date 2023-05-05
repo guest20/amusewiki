@@ -21,7 +21,13 @@ env:
      
   
 jobs:
- 
+  dpkg-buildpackage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: dpkg-buildpackage
+        run: dpkg-buildpackage
+        
 #=
 #
 # This step lists t/**.t, so that we can run the tests in a matrix on it in github.
