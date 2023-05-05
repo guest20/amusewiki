@@ -19,7 +19,16 @@ env:
   CPAN_MIRROR: http://www.cpan.org
   VERBOSE: '' # --verbose
      
-  
+  WANTED_PACKAGES: fonts-dejavu-extra fonts-dejavu-core fonts-linuxlibertine fonts-cmu fonts-texgyre fonts-cmu fonts-texgyre texlive-fonts-extra \
+          texlive-lang-european texlive-lang-italian \
+          libxapian-dev texlive-xetex \
+          graphicsmagick ghostscript imagemagick \
+          xapian-tools libxapian-dev \
+          poppler-utils \
+          shared-mime-info \
+          openssl libssl-dev \
+          carton git fontconfig cgit rsync \
+          devscripts dput lintian sudo
 jobs:
 #=
 #
@@ -28,9 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt-get update 
-      - run: dpkg --get-selections; true 
-      - run: sudo apt-get build-dep . && sudo dpkg-buildpackage
+      - name: apt-get update + install 
+        run: apt-get update && apt-get install -y $WANTED_PACKAGES
+      # run: dpkg --get-selections; true 
+      # run:  sudo apt-get update  && sudo apt-get build-dep . && sudo dpkg-buildpackage
+      - run: sudo dpkg-buildpackage
       - run: lintian
         
 #=
@@ -105,18 +116,7 @@ jobs:
 # libtext-amuse-compile-perl depends on a bunch of fonts, but I hard-coded them here
 # https://amusewiki.org/library/install
       - name: apt-get update + install 
-        run: |
-          apt-get update && apt-get install -y \
-          fonts-dejavu-extra fonts-dejavu-core fonts-linuxlibertine fonts-cmu fonts-texgyre fonts-cmu fonts-texgyre texlive-fonts-extra \
-          texlive-lang-european texlive-lang-italian \
-          libxapian-dev texlive-xetex \
-          graphicsmagick ghostscript imagemagick \
-          xapian-tools libxapian-dev \
-          poppler-utils \
-          shared-mime-info \
-          openssl libssl-dev \
-          carton git fontconfig cgit rsync \
-          devscripts dput lintian sudo \
+        run: apt-get update && apt-get install -y $WANTED_PACKAGES
 
 # I think this might be causing the failre I see in t/cgit-integration.t, but it's not clear:
       - name: git config
