@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo apt-get update 
-      - run: dpkg --get-selections | grep hold
+      - run: dpkg --get-selections; true 
       - run: sudo apt-get build-dep . && sudo dpkg-buildpackage
       - run: lintian
         
