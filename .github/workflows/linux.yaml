@@ -21,13 +21,16 @@ env:
      
   
 jobs:
+#=
+#
 # build a package, and see what lintian thinks about it 
   dpkg-buildpackage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt-get update &&  sudo apt-get build-dep . && sudo dpkg-buildpackage
+      - run: sudo apt-get update 
       - run: dpkg --get-selections | grep hold
+      - run: sudo apt-get build-dep . && sudo dpkg-buildpackage
       - run: lintian
         
 #=
