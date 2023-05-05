@@ -27,7 +27,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: dpkg-buildpackage
-        run: dpkg-buildpackage
+        run:
+        #https://stackoverflow.com/a/40247459 How to automatically satisfy dependencies in ".dsc" filesv
+        - apt-get build-dep .
+        # /usr/lib/pbuilder/pbuilder-satisfydepends* --control *.dsc
+        # mk-build-deps --install *.dsc
+        # pbuilder build *.dsc
+        # sbuild *.dsc
+        - dpkg-buildpackage
         
 #=
 #
