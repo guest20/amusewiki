@@ -26,9 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: id
-      - run: apt-get build-dep .
-      - run: dpkg-buildpackage
+      - run: sudo apt-get build-dep .
+      - run: sudo dpkg-buildpackage
       - run: lintian
         
 #=
