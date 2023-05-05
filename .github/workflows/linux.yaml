@@ -39,9 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run:  id 
-      - name: apt-get update + pbuilder-satisfydepends 
-        run:  sudo apt-get update && sudo apt-get install -y pbuilder aptitude && sudo /usr/lib/pbuilder/pbuilder-satisfydepends  
+      - run: sudo apt-get update 
+      - run: sudo apt-get install -y pbuilder aptitude
+      - run: sudo /usr/lib/pbuilder/pbuilder-satisfydepends  
       # run: dpkg --get-selections; true 
       # run:  sudo apt-get update  && sudo apt-get build-dep . && sudo dpkg-buildpackage
       - run: dpkg-buildpackage 
