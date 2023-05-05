@@ -39,8 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt-get update 
-      - run: sudo apt-get install -y pbuilder aptitude devscripts equivs
+      - run: sudo -E apt-get update 
+      - run: sudo -E apt-get install -y pbuilder aptitude devscripts equivs
 # https://stackoverflow.com/questions/17435958/how-to-install-build-dependencies-directly-from-the-debian-control-file
       - run: mk-build-deps --install debian/control
       - run: dpkg-buildpackage 
