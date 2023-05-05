@@ -19,7 +19,8 @@ env:
   CPAN_MIRROR: http://www.cpan.org
   VERBOSE: '' # --verbose
      
-  WANTED_PACKAGES: >-
+  WANTED_PACKAGES: >- 
+          libcrypt-xkcdpassword-perl
           fonts-dejavu-extra fonts-dejavu-core fonts-linuxlibertine fonts-cmu fonts-texgyre fonts-cmu fonts-texgyre texlive-fonts-extra 
           texlive-lang-european texlive-lang-italian 
           libxapian-dev texlive-xetex 
@@ -40,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo -E apt-get update 
-      - run: sudo -E apt-get install -y pbuilder aptitude devscripts equivs
+      - run: sudo -E apt-get install -y libcrypt-xkcdpassword-perl pbuilder aptitude devscripts equivs
 # https://stackoverflow.com/questions/17435958/how-to-install-build-dependencies-directly-from-the-debian-control-file
       - run: sudo -E mk-build-deps --install debian/control
       - run: sudo -E dpkg-buildpackage 
