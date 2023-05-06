@@ -37,7 +37,7 @@ jobs:
       - run: |
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
-          -v `pwd`:`pwd` -w`pwd` debian:bullseye sh -c '
+          -v `pwd`:`pwd` -v ~/lintz:/lintz -w`pwd` debian:bullseye sh -c '
           echo "== debian\n";
             id ;
             uname -a ;
@@ -65,7 +65,11 @@ jobs:
             dpkg-buildpackage --build=all; 
             
           echo "== lint the package\n";
-            (ls -d ../*.deb |grep -v "[-]build-deps$" | while read deb ; do lintian $deb | tee lintian-$deb.txt; done)
+            (cd ..; ls -d *.deb |grep -v "[-]build-deps$" | while read deb ; do lintian $deb | tee /lintz/lintian-$deb.txt; done)
           '
-          cat lintian*.txt > $GITHUB_OUTPUT
+          
+      - uses: actions/upload-artifact@v3
+        with:
+          name: lintian-reports
+          path: ~/lintz/*
         
