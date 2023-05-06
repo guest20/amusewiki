@@ -56,7 +56,7 @@ jobs:
            
           echo "== build/lint the package\n";
             mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debian/control && 
-            dpkg-buildpackage && 
+            dpkg-buildpackage --build=all && 
             lintian *.deb && 
             echo "All Ok."
           '
