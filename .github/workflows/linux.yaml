@@ -45,15 +45,15 @@ jobs:
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;  # APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
             echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki.list ;
-          
-          echo "== confirm the source\n";
-            echo "=== key list\n";     apt-key list;
-            echo "=== policy\n";       apt-cache policy;
-            echo "=== sources list\n"; cat /etc/apt/sources.list;
             
           echo "== update\n";
             apt-get update;
             
+          echo "== confirm the source\n";
+            echo "=== key list\n";     apt-key list;
+            echo "=== policy\n";       apt-cache policy;
+            echo "=== sources list\n"; cat /etc/apt/sources.list;
+           
           echo "== build/lint the package\n";
             mk-build-deps debian/control && 
             dpkg-buildpackage && (find . ; true) &&
