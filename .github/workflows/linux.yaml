@@ -55,7 +55,7 @@ jobs:
             echo "=== sources list\n"; cat /etc/apt/sources.list;
            
           echo "== build/lint the package\n";
-            mk-build-deps debian/control && 
+            mk-build-deps --install -y debian/control && 
             dpkg-buildpackage && (find . ; true) &&
             lintian *.deb &&
             echo "All Ok."
