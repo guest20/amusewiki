@@ -59,11 +59,13 @@ jobs:
             echo "=== policy\n";       apt-cache policy;
             echo "=== sources list\n"; cat /etc/apt/sources.list;
            
-          echo "== build/lint the package\n";
+          echo "== build the package\n";
             mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debian/control && 
             (rm -fr t/; mkdir t/; echo "use Test::More; ok(1, q[the tests are fake]); done_testing" > "t/0-basic.t" ) &&
             dpkg-buildpackage --build=all; 
-            (lintian *.deb | tee lintian.txt)
+            
+          echo "== lint the package\n";
+            (ls -d *.deb | while read deb ; do lintian $deb | tee lintian-$deb.txt; done)
           '
-          cat lintian.txt > $GITHUB_OUTPUT
+          cat lintian*.txt > $GITHUB_OUTPUT
         
