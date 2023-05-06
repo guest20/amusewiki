@@ -53,8 +53,9 @@ jobs:
             echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
           
           echo "== confirm the source\n";
-            apt-cache policy;
-            cat /etc/apt/sources.list
+            echo "=== key list\n";     apt-key list;
+            echo "=== policy\n";       apt-cache policy;
+            echo "=== sources list\n"; cat /etc/apt/sources.list;
             
           echo "== update\n";
             apt-get update;
