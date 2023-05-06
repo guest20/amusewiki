@@ -43,10 +43,18 @@ jobs:
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
           -v `pwd`:`pwd` -w`pwd` debian sh -c '
-            apt-get update && \
-            apt-get install -y devscripts dput lintian apt-utils && \
-            mk-build-deps --install debian/control && \
-            dpkg-buildpackage && \
+          
+          # https://packages.amusewiki.org/
+            wget -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
+            echo 'deb http://packages.amusewiki.org/debian stretch main' > /etc/apt/sources.list.d/amusewiki.list ;
+            
+          # setup
+            apt-get update && 
+            apt-get install -y devscripts dput lintian apt-utils && 
+            
+          # build/lint the package
+            mk-build-deps --install debian/control && 
+            dpkg-buildpackage && 
             lintian *.deb
           '
         
