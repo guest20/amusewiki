@@ -41,11 +41,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          docker run  -v `pwd`:`pwd` -w`pwd` debian sh -c '
+          docker run  \
+          -EDEBIAN_FRONTEND=noninteractive \
+          -v `pwd`:`pwd` -w`pwd` debian sh -c '
             apt-get update;
             apt-get install -y devscripts dput lintian;
             mk-build-deps --install debian/control;
             dpkg-buildpackage;
+            lintian *.deb
           '
         
 #=
