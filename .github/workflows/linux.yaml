@@ -42,14 +42,14 @@ jobs:
       - run: |
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
-          -v `pwd`:`pwd` -w`pwd` debian sh -c '
+          -v `pwd`:`pwd` -w`pwd` debian:bullseye sh -c '
           echo "== tools\n";
            (apt-get update || apt-get update || apt-get update) && 
             apt-get install -y ca-certificates wget gnupg2 dput devscripts lintian apt-utils;
             
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
-            echo "deb http://packages.amusewiki.org/debian stretch main"  > /etc/apt/sources.list.d/amusewiki-stretch.list ;
+            # echo "deb http://packages.amusewiki.org/debian stretch main"  > /etc/apt/sources.list.d/amusewiki-stretch.list ;
             echo "deb http://packages.amusewiki.org/debian bullseye main" > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
 
           echo "== update\n";
