@@ -49,7 +49,7 @@ jobs:
             
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
-            echo 'deb http://packages.amusewiki.org/debian stretch main' > /etc/apt/sources.list.d/amusewiki.list ;
+            echo "deb http://packages.amusewiki.org/debian stretch main" > /etc/apt/sources.list.d/amusewiki.list ;
             
           echo "== update\n";
             apt-get update;
