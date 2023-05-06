@@ -45,7 +45,7 @@ jobs:
           
           echo "== tools\n";
            (apt-get update || apt-get update || apt-get update) && 
-            apt-get install -y ca-certificates wget gnupg2 devscripts lintian apt-utils;
+            apt-get install -y ca-certificates wget gnupg2 devscripts lintian apt-utils bash-completion;
             
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;  # APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
@@ -61,11 +61,11 @@ jobs:
            
           echo "== build the package\n";
             mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debian/control && 
-            (rm -fr t/; mkdir t/; echo "use Test::More; ok(1, q[the tests are fake]); done_testing" > "t/0-basic.t" ) &&
+            (rm -fr t/; mkdir t/; echo "use Test::More; ok(1, q[running the tests takes time.]); done_testing" > "t/0-basic.t" ) &&
             dpkg-buildpackage --build=all; 
             
           echo "== lint the package\n";
-            (ls -d *.deb | while read deb ; do lintian $deb | tee lintian-$deb.txt; done)
+            (ls -d *.deb |grep -v "-build-deps$" | while read deb ; do lintian $deb | tee lintian-$deb.txt; done)
           '
           cat lintian*.txt > $GITHUB_OUTPUT
         
