@@ -29,6 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - run: id
+      - run: uname -a 
+      - run: lsb_release -a 
+      
       - run: |
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
@@ -39,8 +44,7 @@ jobs:
             
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;  # APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
-            # echo "deb http://packages.amusewiki.org/debian stretch main"  > /etc/apt/sources.list.d/amusewiki-stretch.list ;
-            echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
+            echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki.list ;
           
           echo "== confirm the source\n";
             echo "=== key list\n";     apt-key list;
