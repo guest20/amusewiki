@@ -48,9 +48,9 @@ jobs:
             apt-get install -y ca-certificates wget gnupg2 dput devscripts lintian apt-utils;
             
           echo "== steps from https://packages.amusewiki.org/\n";
-            wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
+            wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - ;
             # echo "deb http://packages.amusewiki.org/debian stretch main"  > /etc/apt/sources.list.d/amusewiki-stretch.list ;
-            echo "deb http://packages.amusewiki.org/debian bullseye main" > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
+            echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
 
           echo "== update\n";
             apt-get update;
