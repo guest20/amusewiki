@@ -43,10 +43,10 @@ jobs:
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
           -v `pwd`:`pwd` -w`pwd` debian sh -c '
-            apt-get update;
-            apt-get install -y devscripts dput lintian;
-            mk-build-deps --install debian/control;
-            dpkg-buildpackage;
+            apt-get update && \
+            apt-get install -y devscripts dput lintian apt-utils && \
+            mk-build-deps --install debian/control && \
+            dpkg-buildpackage && \
             lintian *.deb
           '
         
