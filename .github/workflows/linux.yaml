@@ -38,6 +38,11 @@ jobs:
           docker run  \
           -e DEBIAN_FRONTEND=noninteractive \
           -v `pwd`:`pwd` -w`pwd` debian:bullseye sh -c '
+          echo "== debian\n";
+            id ;
+            uname -a ;
+            lsb_release -a ;
+          
           echo "== tools\n";
            (apt-get update || apt-get update || apt-get update) && 
             apt-get install -y ca-certificates wget gnupg2 devscripts lintian apt-utils;
@@ -56,8 +61,8 @@ jobs:
            
           echo "== build/lint the package\n";
             mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debian/control && 
-            dpkg-buildpackage --build=all && 
-            lintian *.deb && 
-            echo "All Ok."
+            dpkg-buildpackage --build=all; 
+            (lintian *.deb | tee lintian.txt)
           '
+          cat lintian.txt > $GITHUB_OUTPUT
         
