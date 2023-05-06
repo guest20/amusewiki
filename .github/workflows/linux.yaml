@@ -30,7 +30,6 @@ env:
           shared-mime-info 
           openssl libssl-dev 
           carton git fontconfig cgit rsync 
-          devscripts dput lintian sudo
 
 jobs:
 #=
