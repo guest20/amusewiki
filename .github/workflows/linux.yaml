@@ -45,7 +45,7 @@ jobs:
           -v `pwd`:`pwd` -w`pwd` debian sh -c '
           echo "== tools\n";
            (apt-get update || apt-get update || apt-get update) && 
-            apt-get install -y ca-certificates wget gnupg2 dput lintian apt-utils;
+            apt-get install -y ca-certificates wget gnupg2 dput devscripts lintian apt-utils;
             
           echo "== steps from https://packages.amusewiki.org/\n";
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
