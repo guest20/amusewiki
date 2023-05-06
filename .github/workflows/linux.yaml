@@ -44,11 +44,11 @@ jobs:
           -e DEBIAN_FRONTEND=noninteractive \
           -v `pwd`:`pwd` -w`pwd` debian sh -c '
           # setup
-            apt-get update && 
-            apt-get install -y ca-certificates wget gnupg2 dput lintian apt-utils && 
+           (apt-get update || apt-get update || apt-get update) && 
+            apt-get install -y ca-certificates wget gnupg2 dput lintian apt-utils;
             
           # https://packages.amusewiki.org/
-            wget -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
+            wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | apt-key add - ;
             echo 'deb http://packages.amusewiki.org/debian stretch main' > /etc/apt/sources.list.d/amusewiki.list ;
             
           # setup
@@ -56,8 +56,9 @@ jobs:
             
           # build/lint the package
             mk-build-deps --install debian/control && 
-            dpkg-buildpackage && 
-            lintian *.deb
+            dpkg-buildpackage && (find . ; true) &&
+            lintian *.deb &&
+            echo "All Ok."
           '
         
 #=
