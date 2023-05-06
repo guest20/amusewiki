@@ -51,7 +51,11 @@ jobs:
             wget --no-verbose -O - https://packages.amusewiki.org/amusewiki.gpg.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - ;
             # echo "deb http://packages.amusewiki.org/debian stretch main"  > /etc/apt/sources.list.d/amusewiki-stretch.list ;
             echo "deb http://packages.amusewiki.org/debian bullseye main"   > /etc/apt/sources.list.d/amusewiki-bullseye.list ;
-
+          
+          echo "== confirm the source\n";
+            apt-cache policy;
+            cat /etc/apt/sources.list
+            
           echo "== update\n";
             apt-get update;
             
